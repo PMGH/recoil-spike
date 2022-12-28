@@ -1,0 +1,12 @@
+.beerlistitem {
+  margin: .5rem 0;
+}
+
+.beerlistitemlink {
+  color: blue;
+  text-decoration: none;
+}
+
+.beerlistitemlink:hover {
+  text-decoration: underline;
+}
