@@ -1,0 +1,24 @@
+.nav {
+  display: flex;
+}
+
+.navlist {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.navlistitem {
+  margin: 0 .5rem;
+  padding: .5rem;
+}
+
+.navlistitem:hover {
+  background: lightgrey;
+  border-radius: 5px;
+}
+
+.navlistitemlink {
+  color: blue;
+  text-decoration: none;
+}
