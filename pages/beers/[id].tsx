@@ -35,7 +35,7 @@ const BeerPage = () => {
     <>
       <h2>Name: {beer.name}</h2>
       <p>Description: {beer.description}</p>
-      <FavouriteButton context={beer} />
+      <FavouriteButton favouriteName="favourite_beers" itemId={beer.id} />
     </>
   )
 

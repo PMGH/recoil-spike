@@ -11,7 +11,6 @@ const BeersPage = () => {
   useEffect(() => {
     // https://punkapi.com/documentation/v2
     // limited to 25 items by default (without pagination)
-    console.log("useEffect", { recoilStateBeers: beers})
     if(!beers.length) {
       fetch('https://api.punkapi.com/v2/beers')
         .then(res => res.json())

@@ -1,5 +1,3 @@
-import { Beer } from "../../store/store.types";
+import { UseFavouritesProps } from "../../hooks/useFavourites";
 
-export type FavouriteButtonProps = {
-  context: Beer;
-}
+export interface FavouriteButtonProps extends UseFavouritesProps {}

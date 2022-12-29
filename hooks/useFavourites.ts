@@ -1,21 +1,20 @@
-import { Beer } from "../store/store.types";
-
-type UseFavouritesProps = {
-  context: Beer;
+export interface UseFavouritesProps {
+  favouriteName: string;
+  itemId: number;
 }
 
-const useFavourites = ({ context }: UseFavouritesProps) => {
-  const favouritesAsJSON = localStorage.getItem('favourites') || '[]';
+const useFavourites = ({ favouriteName, itemId }: UseFavouritesProps) => {
+  const favouritesAsJSON = localStorage.getItem(favouriteName) || '[]';
   const favourites = JSON.parse(favouritesAsJSON);
 
   const addFavouriteToLocalStorage = () => {
-    const newFavourites = [...favourites, context.id];
-    localStorage.setItem('favourites', JSON.stringify(newFavourites));
+    const newFavourites = [...favourites, itemId];
+    localStorage.setItem(favouriteName, JSON.stringify(newFavourites));
   }
 
   const removeFavouriteFromLocalStorage = () => {
-    const newFavourites = favourites.filter((favourite: number) => favourite !== context.id);
-    localStorage.setItem('favourites', JSON.stringify(newFavourites));
+    const newFavourites = favourites.filter((favourite: number) => favourite !== itemId);
+    localStorage.setItem(favouriteName, JSON.stringify(newFavourites));
   }
 
   return { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage };

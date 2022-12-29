@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import useFavourites from "../../hooks/useFavourites";
 import { FavouriteButtonProps } from "./FavouriteButton.types";
 
-const FavouriteButton = ({ context }: FavouriteButtonProps) => {
+const FavouriteButton = ({ favouriteName, itemId }: FavouriteButtonProps) => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage } = useFavourites({context});
+  const { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage } = useFavourites({ favouriteName, itemId });
 
   useEffect(() => {
-    if (favourites.includes(context.id)) {
-      setIsFavourite(true);
-    }
-  }, [favourites, context.id])
+    console.log({ favourites, itemId, fave: favourites.includes(itemId) })
+    favourites.includes(itemId) ? setIsFavourite(true) : setIsFavourite(false);
+  }, [favourites, itemId])
 
   const toggleFavourite = () => {
     setIsFavourite(!isFavourite);
