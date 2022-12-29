@@ -19,7 +19,6 @@ const BeerPage = () => {
         fetch(`https://api.punkapi.com/v2/beers/${id}`)
           .then(res => res.json())
           .then((brewdogBeer: Beer[]) => {
-            console.log({ brewdogBeer })
             setSelectedBeer(brewdogBeer[0]); // Add beer to recoil state
           })
           .catch(error => {

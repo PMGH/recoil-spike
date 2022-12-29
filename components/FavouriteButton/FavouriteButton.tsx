@@ -7,7 +7,6 @@ const FavouriteButton = ({ favouriteName, itemId }: FavouriteButtonProps) => {
   const { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage } = useFavourites({ favouriteName, itemId });
 
   useEffect(() => {
-    console.log({ favourites, itemId, fave: favourites.includes(itemId) })
     favourites.includes(itemId) ? setIsFavourite(true) : setIsFavourite(false);
   }, [favourites, itemId])
 
