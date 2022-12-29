@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
+import FavouriteButton from "../../components/FavouriteButton/FavouriteButton";
+import useFavourites from "../../hooks/useFavourites";
 import { beersState } from "../../store/store";
 import { Beer } from "../../store/store.types";
 
@@ -18,6 +20,7 @@ const BeerPage = () => {
     <>
       <h2>Name: {beer.name}</h2>
       <p>Description: {beer.description}</p>
+      <FavouriteButton context={beer} />
     </>
   )
 
