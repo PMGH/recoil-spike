@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import BeerSearch from "../../components/BeerSearch/BeerSearch";
 import BeersList from "../../components/BeersList/BeersList";
 import { beersState } from "../../store/store";
 
@@ -26,6 +27,7 @@ const BeersPage = () => {
   return (
     <div>
       <h1>Beers Index</h1>
+      <BeerSearch />
       <BeersList />
     </div>
   )
