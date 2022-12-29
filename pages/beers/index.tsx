@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import BeerSearch from "../../components/BeerSearch/BeerSearch";
 import BeersList from "../../components/BeersList/BeersList";
 import { beersState } from "../../store/store";
+import { Beer } from "../../store/store.types";
 
 const BeersPage = () => {
   const [beers, setBeers] = useRecoilState(beersState);
@@ -14,7 +15,7 @@ const BeersPage = () => {
     if(!beers.length) {
       fetch('https://api.punkapi.com/v2/beers')
         .then(res => res.json())
-        .then(brewdogBeers => {
+        .then((brewdogBeers: Beer[]) => {
           console.log({ brewdogBeers });
           setBeers(brewdogBeers); // Add beers to recoil state
         })

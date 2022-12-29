@@ -1,20 +1,35 @@
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import FavouriteButton from "../../components/FavouriteButton/FavouriteButton";
-import useFavourites from "../../hooks/useFavourites";
-import { beersState } from "../../store/store";
+import { beersState, selectedBeerState } from "../../store/store";
 import { Beer } from "../../store/store.types";
 
 const BeerPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  let beers = useRecoilState(beersState);
+  const beers = useRecoilValue(beersState);
+  const [selectedBeer, setSelectedBeer] = useRecoilState(selectedBeerState);
 
-  // Need to handle page refreshes - if user refreshes page, the beersState will be empty
+  useEffect(() => {
+    const beerFromStore: Beer | undefined = beers.find((item: Beer) => String(item.id) === id);
 
-  const beer: Beer | undefined = beers[0].find((beer: Beer) => String(beer.id) === id);
-
-  console.log({ id, router, beers, beer });
+    if (!beerFromStore) {
+      if (id) {
+        fetch(`https://api.punkapi.com/v2/beers/${id}`)
+          .then(res => res.json())
+          .then((brewdogBeer: Beer[]) => {
+            console.log({ brewdogBeer })
+            setSelectedBeer(brewdogBeer[0]); // Add beer to recoil state
+          })
+          .catch(error => {
+            console.error({ error });
+          });
+      }
+    } else {
+      setSelectedBeer(beerFromStore);
+    }
+  }, [id, beers, setSelectedBeer]);
 
   const beerDetails = (beer: Beer) => (
     <>
@@ -27,7 +42,7 @@ const BeerPage = () => {
   return (
     <div>
       <h1>Beer Page</h1>
-      {beer && beerDetails(beer)}
+      {selectedBeer && beerDetails(selectedBeer)}
     </div>
   )
 }
