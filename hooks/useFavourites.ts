@@ -4,20 +4,24 @@ export interface UseFavouritesProps {
 }
 
 const useFavourites = ({ favouriteName, itemId }: UseFavouritesProps) => {
-  const favouritesAsJSON = localStorage.getItem(favouriteName) || '[]';
-  const favourites = JSON.parse(favouritesAsJSON);
+  const getFavourites = () => {
+    const favouritesAsJSON = localStorage.getItem(favouriteName) || '[]';
+    return JSON.parse(favouritesAsJSON);
+  }
 
   const addFavouriteToLocalStorage = () => {
+    const favourites = getFavourites();
     const newFavourites = [...favourites, itemId];
     localStorage.setItem(favouriteName, JSON.stringify(newFavourites));
   }
 
   const removeFavouriteFromLocalStorage = () => {
+    const favourites = getFavourites();
     const newFavourites = favourites.filter((favourite: number) => favourite !== itemId);
     localStorage.setItem(favouriteName, JSON.stringify(newFavourites));
   }
 
-  return { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage };
+  return { getFavourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage };
 }
 
 export default useFavourites;

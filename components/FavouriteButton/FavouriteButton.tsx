@@ -5,15 +5,17 @@ import styles from './FavouriteButton.module.css';
 
 const FavouriteButton = ({ favouriteName, itemId }: FavouriteButtonProps) => {
   const [isFavourite, setIsFavourite] = useState(false);
-  const { favourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage } = useFavourites({ favouriteName, itemId });
+  const { getFavourites, addFavouriteToLocalStorage, removeFavouriteFromLocalStorage } = useFavourites({ favouriteName, itemId });
 
   useEffect(() => {
+    const favourites = getFavourites();
     favourites.includes(itemId) ? setIsFavourite(true) : setIsFavourite(false);
-  }, [favourites, itemId])
+  }, [itemId, getFavourites])
 
   const toggleFavourite = () => {
+    const favourites = getFavourites();
+    favourites.includes(itemId) ? removeFavouriteFromLocalStorage(): addFavouriteToLocalStorage();
     setIsFavourite(!isFavourite);
-    isFavourite ? removeFavouriteFromLocalStorage(): addFavouriteToLocalStorage();
   };
 
   const isFavouriteClassName = isFavourite ? styles.favouritebutton__active : styles.favouritebutton__inactive;

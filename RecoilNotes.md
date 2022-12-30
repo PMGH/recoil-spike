@@ -126,6 +126,6 @@ I created a `FavouriteButton` component and a `useFavourites` hook to handle thi
 
 The `FavouriteButton` accepts a `favouriteName` (the name of the key in localstorage) and `itemId` prop that allows the favouriting to be a bit more generic.
 
-The `FavouriteButton` component uses the `isFavourite` state (boolean) and the `favourites`, `addFavouriteToLocalStorage`, and `removeFavouriteFromLocalStorage` properties returned by the `useFavourites` hook.
+The `FavouriteButton` component uses the `isFavourite` state (boolean) and the `getFavourites`, `addFavouriteToLocalStorage`, and `removeFavouriteFromLocalStorage` functions returned by the `useFavourites` hook.
 
-When the `FavouriteButton` is clicked it checks if the favourite already exists in localStorage. If it does then it runs the `removeFavouriteFromLocalStorage` function, otherwise the beer ID is added to the favourites array in localStorage by the `addFavouriteToLocalStorage` function.
+When the `FavouriteButton` is clicked it checks if the favourite already exists in localStorage using the `getFavourites` function. If it exists as a favourite then it runs the `removeFavouriteFromLocalStorage` function, otherwise the beer ID is added to the favourites array in localStorage by the `addFavouriteToLocalStorage` function.
