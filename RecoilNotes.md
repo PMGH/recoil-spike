@@ -1,10 +1,12 @@
-# Getting Started
+# Recoil Spike
 
-Recoil docs: https://recoiljs.org/docs/introduction/getting-started
-Recoil sideguide (vscode extension) tutorial: https://app.sideguide.dev/recoil/tutorial/
+## Getting Started with Recoil
+
+- Recoil docs: https://recoiljs.org/docs/introduction/getting-started
+- Recoil sideguide (vscode extension) tutorial: https://app.sideguide.dev/recoil/tutorial/
 
 ### Atoms
-Definition: A unit of state (key/value pair)
+Definition: a unit of state (key/value pair)
 
 ```typescript
 const fontSizeState = atom({
@@ -62,11 +64,23 @@ const fontSizeLabelState = selector({
   },
 });
 ```
+Or to filter:
+```typescript
+export const filteredBeersState = selector<Beer[]>({
+  key: 'filteredBeersState',
+  get: ({ get }) => {
+    const beers: Beer[] = get(beersState);
+    const searchTerm = get(beerFilterState).toLowerCase();
+
+    return beers.length ? beers.filter((beer) => beer.name.toLowerCase().includes(searchTerm)) : [];
+  }
+});
+```
+
 
 ## The GSM Spike Task
 
 #### Pages
-I created pages for:
 1. Beers index (pages/beers/index.tsx)
 2. Selected Beer (pages/beers/[id].tsx)
 
@@ -78,16 +92,16 @@ I created pages for:
 5. `Navbar`
 
 #### Getting Started with Recoil
-1. I installed `recoil` as a dependency
+1. I installed `recoil` as a dependency using `yarn add recoil`
 2. I had to wrap the _app.tsx component in a `<RecoilRoot>` component to make recoil available throughout the app
 
 #### Store of Recoil State
 I have created a store within store/store.ts to hold all the atoms - this could be split into smaller stores but I think it makes sense to centralise atoms.
 
 #### Beers Index Page - pages/beers/index.tsx
-The beers index page checks the length of the beers in recoil state. If there are no beers then it does a `fetch` request to the PunkAPI `https://api.punkapi.com/v2/beers` endpoint to get the first page of results (25 beers) from the PunkAPI within a `useEffect`.
+The beers index page checks the length of the beers in recoil state. If there are no beers then it does a `fetch` request to the PunkAPI `https://api.punkapi.com/v2/beers` endpoint to get the first page of results (25 beers) from the PunkAPI within a `useEffect`. This should be changed to handle pagination.
 
-The beers are then rendered using the BeersList component.
+The beers are then rendered using the `BeersList` component.
 
 #### Selected Beer Page - pages/beers/[id].tsx
 The selected beer page pulls the ID out of the URL using next/router and checks if there is a beer in recoil state that matches that ID. If no beer is found then it makes a `fetch` request to the PunkAPI `https://api.punkapi.com/v2/beers/[id]` for that beer using the ID.
@@ -108,10 +122,10 @@ The flow is:
 4. `BeersList` component rerenders
 
 #### Favouriting
-I created a `FavouriteButton` component and a `useFavourites` hook to handle this.
+I created a `FavouriteButton` component and a `useFavourites` hook to handle this. Favouriting is available on the Beers index and SelectedBeer pages.
 
 The `FavouriteButton` accepts a `favouriteName` (the name of the key in localstorage) and `itemId` prop that allows the favouriting to be a bit more generic.
 
 The `FavouriteButton` component uses the `isFavourite` state (boolean) and the `favourites`, `addFavouriteToLocalStorage`, and `removeFavouriteFromLocalStorage` properties returned by the `useFavourites` hook.
 
-When the `FavouriteButton` is clicked it checks if the favourite already exists in localStorage. If it does then it runs the `removeFavouriteFromLocalStorage` function, otherwise the beer ID is added to the favourites array in localStorage.
+When the `FavouriteButton` is clicked it checks if the favourite already exists in localStorage. If it does then it runs the `removeFavouriteFromLocalStorage` function, otherwise the beer ID is added to the favourites array in localStorage by the `addFavouriteToLocalStorage` function.
