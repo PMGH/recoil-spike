@@ -1,10 +1,17 @@
 .beerlistitem {
   margin: .5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .beerlistitemlink {
   color: blue;
   text-decoration: none;
+  margin-right: 5px;
 }
 
 .beerlistitemlink:hover {
